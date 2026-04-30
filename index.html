@@ -1420,14 +1420,15 @@ function showContent() {
 
 // 有効期限テキストを「YYYY年M月末日まで有効」に動的更新
 function updateExpiryText() {
-  const now  = new Date();
-  const yyyy = now.getFullYear();
-  const m    = now.getMonth() + 1; // 1〜12
+  const pw = sessionStorage.getItem('bd_auth') || '';
+  const match = pw.match(/^imd(\d{4})(\d{2})$/);
+  if (!match) return;
 
-  // その月の末日を算出（翌月0日 = 当月末日）
-  const lastDay = new Date(yyyy, now.getMonth() + 1, 0).getDate();
+  const yyyy = parseInt(match[1]);
+  const m    = parseInt(match[2]);
+  const lastDay = new Date(yyyy, m, 0).getDate();
 
-  const label = `ご有効期限：${yyyy}年${m}月${lastDay}日 23:59 まで有効`;
+  const label  = `ご有効期限：${yyyy}年${m}月${lastDay}日 23:59 まで有効`;
   const label2 = `有効期限：${yyyy}年${m}月${lastDay}日 23:59 まで`;
 
   const heroEl = document.getElementById('hero-validity');
