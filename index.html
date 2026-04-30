@@ -1397,7 +1397,7 @@ function checkPassword() {
   const errorEl = document.getElementById('pw-error');
 
   if (valid.includes(input)) {
-    sessionStorage.setItem('bd_auth', getCurrentMonthPassword());
+    sessionStorage.setItem('bd_auth', input);;
     showContent();
   } else {
     errorEl.textContent = 'パスワードが正しくありません';
